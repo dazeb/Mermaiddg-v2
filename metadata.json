@@ -1,0 +1,5 @@
+{
+  "name": "Mermaid Visual Studio",
+  "description": "A professional no-code interface for Mermaid.js diagrams with bi-directional code synchronization and AI-powered generation.",
+  "requestFramePermissions": []
+}

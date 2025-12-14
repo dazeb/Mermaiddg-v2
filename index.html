@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mermaid Visual Studio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/reactflow@11.10.1/dist/style.min.css" rel="stylesheet" crossorigin="anonymous" />
+    <style>
+      /* Custom scrollbar for code editor */
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: #1e293b;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #475569;
+        border-radius: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: #64748b;
+      }
+      
+      /* Markdown Styles inside Nodes */
+      .prose p { margin-bottom: 0.25em; }
+      .prose p:last-child { margin-bottom: 0; }
+      .prose strong { color: inherit; font-weight: 700; }
+      .prose code { 
+        background-color: rgba(0,0,0,0.3); 
+        padding: 0.1em 0.3em; 
+        border-radius: 0.25em;
+        font-family: monospace;
+        font-size: 0.9em;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.33.0",
+    "lucide-react": "https://esm.sh/lucide-react@^0.561.0",
+    "reactflow": "https://esm.sh/reactflow@^11.11.4",
+    "html-to-image": "https://esm.sh/html-to-image@1.11.11",
+    "react-markdown": "https://esm.sh/react-markdown@9.0.1?bundle",
+    "remark-gfm": "https://esm.sh/remark-gfm@4.0.0?bundle"
+  }
+}
+</script>
+</head>
+  <body class="bg-slate-900 text-slate-100 overflow-hidden">
+    <div id="root"></div>
+  </body>
+</html>
