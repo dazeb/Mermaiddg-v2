@@ -12,7 +12,7 @@ import ReactFlow, {
   BackgroundVariant,
   useReactFlow,
 } from 'reactflow';
-import { Wand2, Play, Download, Layout, Code, FileCode, Image as ImageIcon, ChevronDown } from 'lucide-react';
+import { Wand2, Play, Download, Layout, Code, FileCode, Image as ImageIcon, ChevronDown, Plus } from 'lucide-react';
 import { toPng } from 'html-to-image';
 
 // Components
@@ -110,7 +110,7 @@ const MermaidStudio = () => {
     // Hide controls momentarily for clean screenshot
     toPng(reactFlowWrapper.current, { 
         cacheBust: true, 
-        backgroundColor: '#0f172a', // match slate-900
+        backgroundColor: '#09090b', // zinc-950
         style: { width: '100%', height: '100%' },
         filter: (node) => true
     })
@@ -154,7 +154,7 @@ const MermaidStudio = () => {
         id: `node_${nodes.length + 1}`,
         type: 'custom',
         position,
-        data: { label: 'New Node', type, color: COLORS.blue },
+        data: { label: 'New Node', type, color: COLORS.zinc },
       };
 
       setNodes((nds) => nds.concat(newNode));
@@ -211,7 +211,7 @@ const MermaidStudio = () => {
         data: { 
             label: n.label, 
             type: (n.type as NodeType) || NodeType.RECTANGLE,
-            color: COLORS.blue 
+            color: COLORS.zinc 
         }
       }));
 
@@ -267,86 +267,88 @@ const MermaidStudio = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen w-screen bg-slate-900 overflow-hidden">
+    <div className="flex flex-col h-screen w-screen bg-black overflow-hidden font-sans">
       {/* Top Toolbar */}
       {!presentationMode && (
-        <header className="h-16 bg-slate-900 border-b border-slate-800 flex items-center justify-between px-4 z-20 relative">
+        <header className="h-14 bg-zinc-950 border-b border-zinc-800 flex items-center justify-between px-4 z-20 relative">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-lg">M</div>
-            <h1 className="font-bold text-xl text-slate-100 tracking-tight">Mermaid <span className="text-blue-500 font-light">Visual Studio</span></h1>
+            <div className="w-6 h-6 bg-zinc-100 rounded text-zinc-950 flex items-center justify-center font-bold text-sm">M</div>
+            <h1 className="font-semibold text-sm text-zinc-100 tracking-tight">Mermaid <span className="text-zinc-500 font-normal">Studio</span></h1>
           </div>
 
-          <div className="flex-1 max-w-2xl mx-8 flex gap-2">
+          <div className="flex-1 max-w-xl mx-8 flex gap-2">
             <input 
                 type="text" 
                 value={aiPrompt}
                 onChange={(e) => setAiPrompt(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleAIBuild()}
-                placeholder="✨ Describe a system to build (e.g. 'Login flow with 2FA and DB')"
-                className="flex-1 bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-sm text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all placeholder-slate-500"
+                placeholder="Describe a system..."
+                className="flex-1 bg-zinc-900 border border-zinc-800 rounded-md px-3 py-1.5 text-xs text-white focus:ring-1 focus:ring-zinc-400 focus:border-zinc-400 outline-none transition-all placeholder-zinc-600"
             />
-            <Tooltip content="Generate diagram using AI" position="bottom">
+            <Tooltip content="Generate with AI" position="bottom">
                 <button 
                     onClick={handleAIBuild}
-                    className="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 transition-colors"
+                    className="bg-zinc-100 hover:bg-white text-zinc-950 px-3 py-1.5 rounded-md text-xs font-medium flex items-center gap-2 transition-colors"
                 >
-                    <Wand2 className="w-4 h-4" /> Generate
+                    <Wand2 className="w-3.5 h-3.5" /> Generate
                 </button>
             </Tooltip>
           </div>
 
-          <div className="flex items-center gap-3">
-             <Tooltip content="Auto Layout (Force Directed)" position="bottom">
+          <div className="flex items-center gap-1.5">
+             <Tooltip content="Auto Layout" position="bottom">
                 <button 
                     onClick={handleAutoLayout}
-                    className="p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded transition-colors"
+                    className="p-1.5 text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800 rounded-md transition-colors"
                 >
-                    <Layout className="w-5 h-5" />
+                    <Layout className="w-4 h-4" />
                 </button>
              </Tooltip>
              
-             <Tooltip content={isCodePanelOpen ? "Hide Code Editor" : "Show Code Editor"} position="bottom">
+             <Tooltip content={isCodePanelOpen ? "Hide Code" : "Show Code"} position="bottom">
                 <button 
                     onClick={() => setIsCodePanelOpen(!isCodePanelOpen)}
-                    className={`p-2 rounded transition-colors ${isCodePanelOpen ? 'bg-blue-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-800'}`}
+                    className={`p-1.5 rounded-md transition-colors ${isCodePanelOpen ? 'bg-zinc-800 text-zinc-100' : 'text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800'}`}
                 >
-                    <Code className="w-5 h-5" />
+                    <Code className="w-4 h-4" />
                 </button>
             </Tooltip>
 
-            <Tooltip content="Presentation Mode" position="bottom">
+            <div className="w-px h-4 bg-zinc-800 mx-1"></div>
+
+            <Tooltip content="Present" position="bottom">
                 <button 
                     onClick={() => setPresentationMode(true)}
-                    className="p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded transition-colors"
+                    className="p-1.5 text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800 rounded-md transition-colors"
                 >
-                    <Play className="w-5 h-5" />
+                    <Play className="w-4 h-4" />
                 </button>
             </Tooltip>
             
             {/* Export Dropdown */}
             <div className="relative">
-                <Tooltip content="Download diagram" position="bottom" delay>
+                <Tooltip content="Export" position="bottom" delay>
                     <button 
                         onClick={() => setIsExportMenuOpen(!isExportMenuOpen)}
-                        className="bg-slate-800 hover:bg-slate-700 text-slate-200 px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 border border-slate-700 transition-colors"
+                        className="bg-zinc-900 hover:bg-zinc-800 text-zinc-200 px-3 py-1.5 rounded-md text-xs font-medium flex items-center gap-2 border border-zinc-800 transition-colors"
                     >
-                        <Download className="w-4 h-4" /> Export <ChevronDown className="w-3 h-3 ml-1" />
+                        <Download className="w-3.5 h-3.5" /> <ChevronDown className="w-3 h-3" />
                     </button>
                 </Tooltip>
                 
                 {isExportMenuOpen && (
-                    <div className="absolute right-0 top-full mt-2 w-48 bg-slate-800 border border-slate-700 rounded-lg shadow-xl overflow-hidden z-50">
+                    <div className="absolute right-0 top-full mt-1 w-40 bg-zinc-900 border border-zinc-800 rounded-md shadow-xl overflow-hidden z-50">
                         <button 
                             onClick={handleExportCode}
-                            className="w-full text-left px-4 py-3 text-sm text-slate-200 hover:bg-slate-700 flex items-center gap-2"
+                            className="w-full text-left px-3 py-2 text-xs text-zinc-300 hover:bg-zinc-800 hover:text-white flex items-center gap-2"
                         >
-                            <FileCode className="w-4 h-4 text-blue-400" /> Mermaid (.mmd)
+                            <FileCode className="w-3.5 h-3.5" /> Mermaid (.mmd)
                         </button>
                         <button 
                             onClick={handleExportImage}
-                            className="w-full text-left px-4 py-3 text-sm text-slate-200 hover:bg-slate-700 flex items-center gap-2 border-t border-slate-700"
+                            className="w-full text-left px-3 py-2 text-xs text-zinc-300 hover:bg-zinc-800 hover:text-white flex items-center gap-2 border-t border-zinc-800"
                         >
-                            <ImageIcon className="w-4 h-4 text-purple-400" /> Image (.png)
+                            <ImageIcon className="w-3.5 h-3.5" /> Image (.png)
                         </button>
                     </div>
                 )}
@@ -362,7 +364,7 @@ const MermaidStudio = () => {
 
         {/* Canvas Area */}
         <div className="flex-1 flex flex-col relative h-full">
-            <div ref={reactFlowWrapper} className="flex-1 w-full h-full bg-slate-950" onDragOver={onDragOver} onDrop={onDrop}>
+            <div ref={reactFlowWrapper} className="flex-1 w-full h-full bg-black" onDragOver={onDragOver} onDrop={onDrop}>
                 <ReactFlow
                     nodes={nodes}
                     edges={edges}
@@ -377,14 +379,14 @@ const MermaidStudio = () => {
                     snapToGrid
                     snapGrid={[20, 20]}
                 >
-                    <Background color="#1e293b" gap={20} variant={BackgroundVariant.Dots} />
-                    {!presentationMode && <Controls className="!bg-slate-800 !border-slate-700 [&>button]:!fill-slate-400 [&>button:hover]:!fill-white" />}
+                    <Background color="#27272a" gap={20} size={1} variant={BackgroundVariant.Dots} />
+                    {!presentationMode && <Controls className="!bg-zinc-900 !border-zinc-800 !rounded-md [&>button]:!fill-zinc-400 [&>button:hover]:!fill-white [&>button]:!border-b-zinc-800" />}
                 </ReactFlow>
 
                 {presentationMode && (
                     <button 
                         onClick={() => setPresentationMode(false)}
-                        className="absolute top-4 right-4 bg-slate-900/80 hover:bg-slate-900 text-white px-4 py-2 rounded-full text-sm font-medium backdrop-blur-md border border-slate-700 z-50 transition-colors"
+                        className="absolute top-4 right-4 bg-zinc-900/80 hover:bg-zinc-900 text-white px-4 py-2 rounded-full text-sm font-medium backdrop-blur-md border border-zinc-800 z-50 transition-colors"
                     >
                         Exit Presentation
                     </button>
@@ -398,7 +400,7 @@ const MermaidStudio = () => {
                 <CodePanel 
                     code={mermaidCode} 
                     onChange={handleCodeChange}
-                    height={isCodePanelOpen ? 200 : 0}
+                    height={isCodePanelOpen ? 240 : 0}
                 />
             )}
         </div>

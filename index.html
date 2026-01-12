@@ -13,24 +13,24 @@
         height: 8px;
       }
       .custom-scrollbar::-webkit-scrollbar-track {
-        background: #1e293b;
+        background: #18181b; /* zinc-900 */
       }
       .custom-scrollbar::-webkit-scrollbar-thumb {
-        background: #475569;
-        border-radius: 4px;
+        background: #3f3f46; /* zinc-700 */
+        border-radius: 2px;
       }
       .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-        background: #64748b;
+        background: #52525b; /* zinc-600 */
       }
       
       /* Markdown Styles inside Nodes */
       .prose p { margin-bottom: 0.25em; }
       .prose p:last-child { margin-bottom: 0; }
-      .prose strong { color: inherit; font-weight: 700; }
+      .prose strong { color: inherit; font-weight: 600; }
       .prose code { 
-        background-color: rgba(0,0,0,0.3); 
+        background-color: rgba(255,255,255,0.1); 
         padding: 0.1em 0.3em; 
-        border-radius: 0.25em;
+        border-radius: 0.2em;
         font-family: monospace;
         font-size: 0.9em;
       }
@@ -51,7 +51,7 @@
 }
 </script>
 </head>
-  <body class="bg-slate-900 text-slate-100 overflow-hidden">
+  <body class="bg-black text-zinc-100 overflow-hidden font-sans antialiased">
     <div id="root"></div>
   </body>
 </html>
